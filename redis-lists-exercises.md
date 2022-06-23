@@ -8,7 +8,7 @@ Final da lista "Carol"
 ```
 127.0.0.1:6379> lpush views:ultimo_usuario Carlos
 (integer) 1
-127.0.0.1:6379> rpush views:ultimo_usuario Joao
+127.0.0.1:6379> rpush views:ultimo_usuario Joao 
 (integer) 2
 127.0.0.1:6379> rpush views:ultimo_usuario Ana
 (integer) 3
@@ -27,7 +27,7 @@ Final da lista "Carol"
 4) "Carol"
 ```
 
-3. Visualizar todos os elementos da lista, com exceção do último
+**3. Visualizar todos os elementos da lista, com exceção do último**
 
 ```
 127.0.0.1:6379> lrange views:ultimo_usuario 0 -2
@@ -36,16 +36,27 @@ Final da lista "Carol"
 3) "Ana"
 ```
 
-4. Visualizar o tamanho da lista
+**4. Visualizar o tamanho da lista**
 
 ```
 127.0.0.1:6379> llen views:ultimo_usuario
 (integer) 4 
 ```
 
-5. Redefinir o tamanho da lista, removendo o primeiro elemento (Sem usar o pop)
+**5. Redefinir o tamanho da lista, removendo o primeiro elemento (Sem usar o pop)**
 
-6. Visualizar o tamanho da lista
+```
+127.0.0.1:6379> ltrim views:ultimo_usuario 1 -1
+OK
+```
+
+**6. Visualizar o tamanho da lista**
+```
+127.0.0.1:6379> lrange views:ultimo_usuario 0 -1
+1) "Joao"
+2) "Ana"
+3) "Carol"
+```
 
 7. Recuperar os elementos da lista da seguinte ordem:
 
@@ -53,3 +64,20 @@ Primeiro
 Último
 Primeiro com bloqueio de 5 segundos se a lista estiver vazia
 Primeiro com bloqueio de 5 segundos se a lista estiver vazia
+
+```
+127.0.0.1:6379> lpop views:ultimo_usuario
+"Joao"
+
+127.0.0.1:6379> rpop views:ultimo_usuario
+"Carol"
+
+127.0.0.1:6379> blpop views:ultimo_usuario 5
+1) "views:ultimo_usuario"
+2) "Ana"
+
+127.0.0.1:6379> blpop views:ultimo_usuario 5
+(nil)
+(5.10s)
+
+```
