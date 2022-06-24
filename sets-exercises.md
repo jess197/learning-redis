@@ -1,8 +1,8 @@
 **1. Deletar a chave "pesquisa:produto"**
 
 ```
-127.0.0.1:6379> srem pesquisa:produto
-(error) ERR wrong number of arguments for 'srem' command
+127.0.0.1:6379> del pesquisa:produto
+(integer) 0
 ```
 
 **2. Criar a chave "pesquisa:produto" do tipo set com os seguintes valores: monitor, mouse e teclado**
